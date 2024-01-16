@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>OpenPass Sample Site / Client JS SDK / Sample</title>
+        <link rel="icon" href="/static/img/favicon.ico" sizes="any" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.myopenpass.com/openpass-js-sdk/v2.2.2/openpass-js-sdk.min.js"></script>
+    </head>
+    <body onload="signIn()">
+        <main>
+            <div class="container p-5">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <a href="/">Back to samples list</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h5 class="card-title">Redirect Sample</h5>
+                        <p class="card-text">Using an inline sign in form.</p>
+                    </div>
+                </div>
+                <div class="card mt-5" id="inline-sign-in-redirect-container"></div>
+            </div>
+        </main>
+
+        <script type="text/javascript">
+            /**
+             * Example of using the OpenPass JS SDK to render an inline sign in form.
+             * using redirect authentication mode.
+             */
+            const openPassClient = new openpass.OpenPassClient({
+                // Replace this with your own client ID
+                clientId: "7d2a353ef4cd4ea2a45b50bf2fe108ba",
+            });
+            const signIn = async () => {
+                try {
+                    await openPassClient.renderInlineSignInForm({
+                        redirectUrl: window.location.origin + "/handle-redirect",
+                        clientState: {
+                            originalUrl: window.location.origin + "/inline-sign-in-form",
+                        },
+                        parentContainerElementId: "inline-sign-in-redirect-container",
+                        authenticationMode: "redirect",
+                        signinButtonTextOption: "signin",
+                    });
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+        </script>
+    </body>
+</html>

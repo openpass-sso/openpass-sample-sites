@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>OpenPass Sample Site / Client JS SDK</title>
+
+        <link rel="icon" href="/static/img/favicon.ico" sizes="any" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <main>
+            <div class="container p-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">OpenPass JS SDK Samples</h5>
+                        <p class="card-text">Quick start samples that demonstrate how to use the OpenPass JavaScript SDK.</p>
+                    </div>
+                </div>
+                <div class="card mt-5">
+                    <table class="card-table table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Authentication Mode</th>
+                                <th>Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Redirect mode with a manually rendered sign-in button</td>
+                                <td>Redirect</td>
+                                <td><a href="/redirect-manual-button">Go to sample</a></td>
+                            </tr>
+                            <tr>
+                                <td>Popup mode with a manually rendered sign-in button</td>
+                                <td>Popup</td>
+                                <td><a href="/popup-manual-button">Go to sample</a></td>
+                            </tr>
+                            <tr>
+                                <td>Redirect mode with an automatically rendered sign-in button using the HTML API</td>
+                                <td>Redirect</td>
+                                <td><a href="/redirect-generated-button-html-api">Go to sample</a></td>
+                            </tr>
+                            <tr>
+                                <td>Popup mode with an automatically rendered sign-in button using the HTML API</td>
+                                <td>Popup</td>
+                                <td><a href="/popup-generated-button-html-api">Go to sample</a></td>
+                            </tr>
+                            <tr>
+                                <td>Various examples of the automatically rendered sign-in button using the JavaScript SDK</td>
+                                <td>Redirect & Popup</td>
+                                <td><a href="/generated-buttons-js-api">Go to sample</a></td>
+                            </tr>
+                            <tr>
+                                <td>Example of inline sign in form using the JavaScript SDK</td>
+                                <td>Redirect</td>
+                                <td><a href="/redirect-inline-sign-in-form">Go to sample</a></td>
+                            </tr>
+                            <tr>
+                                <td>Example of inline sign in form using the JavaScript SDK</td>
+                                <td>Popup</td>
+                                <td><a href="/popup-inline-sign-in-form">Go to sample</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

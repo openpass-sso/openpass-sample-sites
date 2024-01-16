@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OpenPass Sample Site / Piano Integration / Article</title>
+    <link rel="icon" href="/static/img/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png" />
+    <link rel="manifest" href="/static/manifest.webmanifest" />
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700,800" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/auth.js"></script>
+
+    <!-- piano.io integration script -->
+    <script>(function(src){var a=document.createElement("script");a.type="text/javascript";a.async=true;a.src=src;var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})("https://experience.tinypass.com/xbuilder/experience/load?aid=dawrtad3pu");</script>
+
+    <!-- The piano.io integration is set up to show the OpenPass affliate experience. The reg-wall which shows "Sign-in with OpenPass" is triggered by the URL having "/article" in. -->
+
+</head>
+<body>
+    <div class="container">
+        <header class="article-header">
+            <div class="container">
+                <div class="article-header-wrapper">
+                    <div class="article-header-top">
+                        <div class="article-header__logo-wrapper">
+                            <a href="/"><img id="article-header__logo" src="/static/img/logo-boostfitness.svg"/></a>
+                        </div>
+                        <button class="btn openpass-signout-button" id="openpass-signout" style="display: none;">Log out</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="article-header-nav-wrapper">
+            <div class="article-main-nav nav-scroller py-1">
+                <nav class="nav d-flex flex-wrap justify-content-between">
+                    <a class="p-2" href="#">About Us</a>
+                    <a class="p-2" href="#">Eat Better</a>
+                    <a class="p-2" href="#">Get Fit</a>
+                    <a class="p-2" href="#">Challenges</a>
+                    <a class="p-2" href="#">Recipes</a>
+                    <a class="p-2" href="#">Topics</a>
+                </nav>
+            </div>
+        </div>
+
+        <main id="openpass-protected-content" class="article-content-container container">
+           <div id="articles-left-placeholder"></div>
+           <section class="article-title">
+               <h2 class="article-post-title">You Won't Live Longer by Diet or Exercise alone</h2>
+               <p>If you think that eating healthy and exercising regularly are enough to extend your lifespan, you might be in for a surprise.</p>
+               <hr>
+           </section>
+           <section class="article-content">
+               <div class="row g-5">
+                   <div class="col-md-8">
+                       <article class="article-post">
+                           <p><strong>If you think that eating healthy and exercising regularly are enough to extend your lifespan, you might be in for a surprise.</strong> According to a new study published in the journal Nature, diet and exercise alone are not sufficient to increase your longevity. The study found that other factors, such as genetics, environment, and social interactions, play a more important role in determining how long you will live.</p>
+                           <p>The researchers analyzed data from over 500,000 people from 25 countries who participated in the UK Biobank project, a large-scale health and genetic database. They used a machine learning algorithm to identify the most influential factors that affect lifespan, and ranked them according to their importance. The results showed that diet and exercise were only ranked 13th and 15th, respectively, out of the 20 factors that were considered. The top five factors were age, sex, smoking status, education level, and income.</p>
+                           <p>The study also revealed that some factors that are commonly believed to have a positive impact on longevity, such as drinking moderate amounts of alcohol or coffee, actually have a negative or negligible effect. On the other hand, some factors that are often overlooked, such as having a strong social network or living in a clean and green environment, have a significant positive effect on lifespan.</p>
+                           <p>The researchers concluded that diet and exercise alone are not enough to achieve optimal health and longevity. They suggested that people should also pay attention to other aspects of their lives, such as their genetic makeup, their living conditions, and their social relationships. They also recommended that public health policies should take into account the multiple factors that influence lifespan, and not focus solely on diet and exercise.</p>
+                           <p>The study has been met with mixed reactions from the scientific community and the general public. Some experts praised the study for its large sample size and its use of machine learning to identify the most relevant factors. They agreed that diet and exercise are not the only determinants of longevity, and that other factors should be considered as well. However, some critics questioned the validity and reliability of the study, arguing that the data used was self-reported and prone to errors and biases. They also pointed out that the study did not establish causal relationships between the factors and lifespan, and that correlation does not imply causation. They cautioned that diet and exercise are still important for maintaining good health and preventing diseases, and that people should not neglect them based on this study.</p>
+                       </article>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="article-last-news position-sticky" style="top: 2rem;">
+                           <div class="p-4 mb-3 bg-light rounded">
+                               <h4 class="fst-italic">Latest News</h4>
+                               <p>Staying active is one of the best ways to keep our bodies healthy. But did you know it can also improve your overall well-being and quality of life?<p>
+                           </div>
+
+                           <div class="article-archives p-4">
+                               <h4 class="fst-italic">Archives</h4>
+                               <ol class="list-unstyled mb-0">
+                                   <li><a href="#">March 2021</a></li>
+                                   <li><a href="#">February 2021</a></li>
+                                   <li><a href="#">January 2021</a></li>
+                                   <li><a href="#">December 2020</a></li>
+                                   <li><a href="#">November 2020</a></li>
+                                   <li><a href="#">October 2020</a></li>
+                                   <li><a href="#">September 2020</a></li>
+                                   <li><a href="#">August 2020</a></li>
+                                   <li><a href="#">July 2020</a></li>
+                                   <li><a href="#">June 2020</a></li>
+                                   <li><a href="#">May 2020</a></li>
+                                   <li><a href="#">April 2020</a></li>
+                               </ol>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </section>
+
+            <section class="article-section">
+                <h1>Top Stories</h1>
+
+                <div class="op__featured-article-row row mb-2">
+                    <div class="op__featured-article-row__article col-md-4">
+                        <div class="card">
+                            <img class="card-img-top" src="/static/img/feature1.jpg" width="120"  />
+                            <div class="card-body">
+                                <h5 class="card-title">You Won't Live Longer by Diet or Exercise alone</h5>
+                                <div class="card-link">
+                                    <a href="/article/1">Read Article</a>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="29" height="16" viewBox="0 0 29 16" fill="none">
+                                        <path d="M1 7C0.447715 7 4.82823e-08 7.44772 0 8C-4.82823e-08 8.55228 0.447715 9 1 9L1 7ZM28.7071 8.70711C29.0976 8.31658 29.0976 7.68342 28.7071 7.2929L22.3431 0.928934C21.9526 0.53841 21.3195 0.53841 20.9289 0.928934C20.5384 1.31946 20.5384 1.95262 20.9289 2.34315L26.5858 8L20.9289 13.6569C20.5384 14.0474 20.5384 14.6805 20.9289 15.0711C21.3195 15.4616 21.9526 15.4616 22.3431 15.0711L28.7071 8.70711ZM1 9L28 9L28 7L1 7L1 9Z" fill="#E40857"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="op__featured-article-row__article col-md-4">
+                        <div class="card">
+                            <img class="card-img-top" src="/static/img/feature2.jpg" width="120"  />
+                            <div class="card-body">
+                                <h5 class="card-title">Why Cycling is Great for Fitness, Legs, and Mind</h5>
+                                <div class="card-link">
+                                    <a href="/article/2">Read Article</a>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="29" height="16" viewBox="0 0 29 16" fill="none">
+                                        <path d="M1 7C0.447715 7 4.82823e-08 7.44772 0 8C-4.82823e-08 8.55228 0.447715 9 1 9L1 7ZM28.7071 8.70711C29.0976 8.31658 29.0976 7.68342 28.7071 7.2929L22.3431 0.928934C21.9526 0.53841 21.3195 0.53841 20.9289 0.928934C20.5384 1.31946 20.5384 1.95262 20.9289 2.34315L26.5858 8L20.9289 13.6569C20.5384 14.0474 20.5384 14.6805 20.9289 15.0711C21.3195 15.4616 21.9526 15.4616 22.3431 15.0711L28.7071 8.70711ZM1 9L28 9L28 7L1 7L1 9Z" fill="#E40857"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="op__featured-article-row__article col-md-4">
+                        <div class="card">
+                            <img class="card-img-top" src="/static/img/feature3.jpg" width="120"  />
+                            <div class="card-body">
+                                <h5 class="card-title">Meditative to Calm the Mind and Increase Focus</h5>
+                                <div class="card-link">
+                                    <a href="/article/3">Read Article</a>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="29" height="16" viewBox="0 0 29 16" fill="none">
+                                        <path d="M1 7C0.447715 7 4.82823e-08 7.44772 0 8C-4.82823e-08 8.55228 0.447715 9 1 9L1 7ZM28.7071 8.70711C29.0976 8.31658 29.0976 7.68342 28.7071 7.2929L22.3431 0.928934C21.9526 0.53841 21.3195 0.53841 20.9289 0.928934C20.5384 1.31946 20.5384 1.95262 20.9289 2.34315L26.5858 8L20.9289 13.6569C20.5384 14.0474 20.5384 14.6805 20.9289 15.0711C21.3195 15.4616 21.9526 15.4616 22.3431 15.0711L28.7071 8.70711ZM1 9L28 9L28 7L1 7L1 9Z" fill="#E40857"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>

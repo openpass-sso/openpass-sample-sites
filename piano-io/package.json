@@ -1,0 +1,22 @@
+{
+  "name": "openpass-sample-sites-piano-io",
+  "version": "1.0.0",
+  "description": "An OpenPass sample site which integrates with Piano",
+  "author": "chris.riddle@thetradedesk.com",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "server": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.17.3",
+    "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "ejs": "^3.1.9",
+    "npm": "^9.8.1"
+  }
+}

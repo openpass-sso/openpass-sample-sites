@@ -1,0 +1,174 @@
+name: Build + release main branch to dev, stg and prd
+
+on:
+  push:
+    branches: [ main ]
+
+  # this allows us to manually run this job
+  workflow_dispatch:
+
+env:
+  PIANO_ECR_REPOSITORY: openpass-sample-site-piano
+
+jobs:
+
+  generate-tag-name:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag_container.outputs.tag }}
+    steps:
+      - name: Generate container tag
+        id: tag_container
+        shell: bash
+        run: |
+          # https://stackoverflow.com/a/58035262/19888675
+          # $GITHUB_HEAD_REF on PR, and $GITHUB_REF on main push
+          branch_name=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+          tag="${branch_name:0:30}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo “Tag: $tag”
+
+  build-piano:
+    needs: generate-tag-name
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: ${{ secrets.ECR_PUSH_ROLE_ARN_DEV }}
+        aws-region: us-east-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      working-directory: ./piano-io
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      run: |
+        docker build -t $ECR_REGISTRY/$PIANO_ECR_REPOSITORY:${{needs.generate-tag-name.outputs.tag}} .
+        docker push $ECR_REGISTRY/$PIANO_ECR_REPOSITORY:${{needs.generate-tag-name.outputs.tag}}
+        echo "Pushed image to $ECR_REGISTRY/$PIANO_ECR_REPOSITORY:${{needs.generate-tag-name.outputs.tag}}"
+
+  deploy-piano-dev:
+    needs: [generate-tag-name, build-piano]
+    environment: dev
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    concurrency:
+      group: "deploy-dev-group"
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Checkout kube-system-resources
+      uses: actions/checkout@v3
+      with:
+        repository: openpass-sso/kube-system-resources
+        token: ${{ secrets.GH_ORG_KUBE_SYSTEM_RESOURCES_PAT }}
+        path: kube-system-resources
+    
+    - name: Set dev Docker image tag
+      run: |
+        cd kube-system-resources
+
+        git config user.name github_build_script
+        git config user.email github_build_script@thetradedesk.com
+   
+        # download yq
+        wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY} -O /usr/bin/yq && chmod +x /usr/bin/yq
+    
+        # Updating production image tag
+        yq -i ".ttd-generic-deployment.image.tag = \"${{needs.generate-tag-name.outputs.tag}}\"" environments/dev/sample-site-piano/values.yaml
+    
+        # Commit changes
+        git add environments/dev/sample-site-piano/values.yaml
+        git commit -m "Updating dev sample-site-piano image tag to ${{needs.generate-tag-name.outputs.tag}}"
+    
+        git push
+
+
+  deploy-piano-stg:
+    needs: [generate-tag-name, build-piano, deploy-piano-dev]
+    environment: stg
+    runs-on: ubuntu-latest
+    permissions:
+        id-token: write
+        contents: read
+    concurrency:
+        group: "deploy-stg-group"
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Checkout kube-system-resources
+      uses: actions/checkout@v3
+      with:
+        repository: openpass-sso/kube-system-resources
+        token: ${{ secrets.GH_ORG_KUBE_SYSTEM_RESOURCES_PAT }}
+        path: kube-system-resources
+
+    - name: Set stg Docker image tag
+      run: |
+        cd kube-system-resources
+
+        git config user.name github_build_script
+        git config user.email github_build_script@thetradedesk.com
+
+        # download yq
+        wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY} -O /usr/bin/yq && chmod +x /usr/bin/yq
+
+        # Updating production image tag
+        yq -i ".ttd-generic-deployment.image.tag = \"${{needs.generate-tag-name.outputs.tag}}\"" environments/stg/sample-site-piano/values.yaml
+
+        # Commit changes
+        git add environments/stg/sample-site-piano/values.yaml
+        git commit -m "Updating stg sample-site-piano image tag to ${{needs.generate-tag-name.outputs.tag}}"
+
+        git push
+
+  deploy-piano-prd:
+    needs: [generate-tag-name, build-piano, deploy-piano-stg]
+    environment: prd
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    concurrency:
+      group: "deploy-prd-group"
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Checkout kube-system-resources
+      uses: actions/checkout@v3
+      with:
+        repository: openpass-sso/kube-system-resources
+        token: ${{ secrets.GH_ORG_KUBE_SYSTEM_RESOURCES_PAT }}
+        path: kube-system-resources
+
+    - name: Set prd Docker image tag
+      run: |
+        cd kube-system-resources
+
+        git config user.name github_build_script
+        git config user.email github_build_script@thetradedesk.com
+
+        # download yq
+        wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY} -O /usr/bin/yq && chmod +x /usr/bin/yq
+
+        # Updating production image tag
+        yq -i ".ttd-generic-deployment.image.tag = \"${{needs.generate-tag-name.outputs.tag}}\"" environments/prd/sample-site-piano/values.yaml
+
+        # Commit changes
+        git add environments/prd/sample-site-piano/values.yaml
+        git commit -m "Updating prd sample-site-piano image tag to ${{needs.generate-tag-name.outputs.tag}}"
+
+        git push
