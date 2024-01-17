@@ -62,7 +62,7 @@
                 const signInResponse = await openPassClient.handleAuthenticationRedirect();
 
                 resultTitle.innerText = "Success!";
-                resultBody.innerText = "Signed in as: " + signInResponse.idToken.email;
+                resultBody.innerText = "Signed in as: " + signInResponse.idToken.email + ". Originating Uri: " + signInResponse.originatingUri;
                 resultCard.classList.add("text-bg-success");
                 resultCard.classList.remove("invisible");
 
