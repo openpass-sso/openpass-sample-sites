@@ -16,7 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.myopenpass.com/openpass-js-sdk/v2.2.2/openpass-js-sdk.min.js"></script>
+    <script src="https://cdn.myopenpass.com/openpass-js-sdk/v4/openpass-js-sdk.min.js"></script>
 </head>
 
 <body>
@@ -33,6 +33,14 @@
                 <div class="card-body">
                     <h5 class="card-title">Redirect Sample</h5>
                     <p class="card-text">Using an automatically generated sign-in button, rendered by the JS SDK.</p>
+                    <ul>
+                        <li>Mode: Redirect</li>
+                        <li>Text: signin_with</li>
+                        <li>Size: large</li>
+                        <li>Theme: openpass</li>
+                        <li>Shape: standard</li>
+                        <li>Shape Variant: rectangle</li>
+                    </ul>
                 </div>
             </div>
             <div class="card mt-5">
@@ -46,6 +54,10 @@
                             data-redirect-uri="http://localhost:3011/handle-redirect"
                             data-client-id="7d2a353ef4cd4ea2a45b50bf2fe108ba"
                             data-text="signin_with"
+                            data-size="large"
+                            data-theme="openpass"
+                            data-shape="standard"
+                            data-shape-variant="rectangle"
                         >
                         </div>
                     </p>
