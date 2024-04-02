@@ -50,3 +50,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Gradle files
+.gradle/
+.buildtrace/
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
