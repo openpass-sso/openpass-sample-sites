@@ -26,6 +26,18 @@ async function startServer() {
         return res.render("redirect-manual-button.html");
     });
 
+    app.get("/quick-auth-html", (_, res) => {
+        return res.render("quick-auth-html.html");
+    });
+
+    app.get("/quick-auth-popup", (_, res) => {
+        return res.render("quick-auth-popup.html");
+    });
+
+    app.get("/quick-auth-redirect", (_, res) => {
+        return res.render("quick-auth-redirect.html");
+    });
+
     app.get("/popup-manual-button", (_, res) => {
         return res.render("popup-manual-button.html");
     });

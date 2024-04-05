@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>OpenPass Sample Site / Client JS SDK / Sample</title>
+    <link rel="icon" href="/static/img/favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.myopenpass.com/openpass-js-sdk/v4/openpass-js-sdk.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+
+<body>
+    <div id="openpass-quick-auth" data-openpass-quick-auth-client-id="7d2a353ef4cd4ea2a45b50bf2fe108ba"
+        data-openpass-quick-auth-show="true" data-openpass-quick-auth-mode="popup"
+        data-openpass-quick-auth-redirect-uri="http://localhost:3011/handle-redirect"
+        data-openpass-quick-auth-popup-success-callback="popupSuccessCallback"
+        data-openpass-quick-auth-popup-failed-callback="popupFailedCallback">
+    </div>
+    <main>
+        <div id="openpass-quick-auth-demo"></div>
+        <div class="container p-5">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">
+                        <a href="/">Back to samples list</a>
+                    </p>
+                    <button id="show-quick-auth">Show quick-auth</button>
+                    <button id="hide-quick-auth">Hide quick-auth</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+<script>
+    let authClient = undefined;
+    let oneTapDiv = document.getElementById("openpass-quick-auth");
+
+    document.getElementById("show-quick-auth").addEventListener("click", () => {
+        oneTapDiv.setAttribute("data-openpass-quick-auth-show", "true");
+    });
+
+    document.getElementById("hide-quick-auth").addEventListener("click", () => {
+        oneTapDiv.setAttribute("data-openpass-quick-auth-show", "false");
+    });
+
+    function popupSuccessCallback(signInResponse) {
+        oneTapDiv.setAttribute("data-openpass-quick-auth-show", "false");
+        console.log("quick-auth: Popup flow sign in succeeded, email address: " + signInResponse.idToken.email, " setting session storage to true");
+    }
+
+    function popupFailedCallback(error) {
+        console.log("quick-auth: Popup flow sign in failed, error: " + error.message);
+        const resultContainer = document.createElement('div');
+        resultContainer.id = "popup-result";
+        resultContainer.innerHTML = 'Sign in failed: ' + error.message;
+        resultContainer.setAttribute("data-result", "failed");
+        resultContainer.setAttribute("data-error-message", error.message);
+
+        const mainElement = document.getElementsByTagName('main')[0];
+        mainElement.appendChild(resultContainer);
+    }
+</script>
+
+</html>
