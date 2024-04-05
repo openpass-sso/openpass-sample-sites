@@ -29,6 +29,12 @@
                     <button id="clear-session">Clear session</button>
                 </div>
             </div>
+            <div class="card mt-5 invisible" id="result-card">
+                <div class="card-body">
+                    <h5 class="card-title" id="result-title"></h5>
+                    <p class="card-text" id="result-body"></p>
+                </div>
+            </div>
         </div>
     </main>
 </body>
@@ -38,6 +44,9 @@
 <script>
 
     let authClient = undefined;
+    const resultCard = document.getElementById("result-card");
+    const resultTitle = document.getElementById("result-title");
+    const resultBody = document.getElementById("result-body");
 
     document.getElementById("clear-session").addEventListener("click", () => {
         localStorage.removeItem("openpass-authenticated");
@@ -48,20 +57,21 @@
 
         localStorage.setItem("openpass-authenticated", true)
         console.log("quick-auth: Popup flow sign in succeeded, email address: " + signInResponse.idToken.email, " setting session storage to true");
+
+        resultTitle.innerText = "Success!";
+        resultBody.innerText = "Signed in as: " + signInResponse.idToken.email;
+        resultCard.classList.add("text-bg-success");
+        resultCard.classList.remove("invisible");
     }
 
     function popupFailedCallback(error) {
 
         console.log("quick-auth: Popup flow sign in failed, error: " + error.message);
 
-        const resultContainer = document.createElement('div');
-        resultContainer.id = "popup-result";
-        resultContainer.innerHTML = 'Sign in failed: ' + error.message;
-        resultContainer.setAttribute("data-result", "failed");
-        resultContainer.setAttribute("data-error-message", error.message);
-
-        const mainElement = document.getElementsByTagName('main')[0];
-        mainElement.appendChild(resultContainer);
+        resultTitle.innerText = "Error";
+        resultBody.innerText = "Authentication failed: " + error.message;
+        resultCard.classList.add("text-bg-danger");
+        resultCard.classList.remove("invisible");
     }
 
     window.addEventListener("load", async () => {
