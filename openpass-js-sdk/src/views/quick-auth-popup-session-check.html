@@ -26,7 +26,6 @@
                     <p class="card-text">
                         <a href="/">Back to samples list</a>
                     </p>
-                    <button id="clear-authentication-state">Clear authentication state</button>
                 </div>
             </div>
             <div class="card mt-5 invisible" id="result-card">
@@ -48,15 +47,9 @@
     const resultTitle = document.getElementById("result-title");
     const resultBody = document.getElementById("result-body");
 
-    document.getElementById("clear-authentication-state").addEventListener("click", () => {
-        localStorage.removeItem("openpass-authenticated");
-        window.location.reload();
-    });
-
     function popupSuccessCallback(signInResponse) {
 
-        console.log("Popup flow sign in succeeded, email address: " + signInResponse.idToken.email, " setting authentication state to true");
-        localStorage.setItem("openpass-authenticated", true)
+        console.log("Popup flow sign in succeeded, email address: " + signInResponse.idToken.email);
 
         resultTitle.innerText = "Success!";
         resultBody.innerText = "Signed in as: " + signInResponse.idToken.email;
@@ -74,6 +67,28 @@
         resultCard.classList.remove("invisible");
     }
 
+    let quickAuthInitialized = false;
+
+    function visibilityChangedCallback(data) {
+        console.log("Visibility changed: " + data.visibility);
+
+        resultTitle.innerText = "Visibility changed";
+
+        if (quickAuthInitialized) {
+            resultBody.innerText = "Visibility changed to: " + data.visibility;
+            resultCard.classList.add("text-bg-success");
+        } else if (data.visibility) {
+            resultBody.innerText = "Quick Auth is visible because there is an active OpenPass session on this browser";
+            resultCard.classList.add("text-bg-success");
+        } else {
+            resultBody.innerText = "Quick Auth is not visible because there is no active OpenPass session on this browser";
+            resultCard.classList.add("text-bg-danger");
+        } 
+        resultCard.classList.remove("invisible");
+
+        quickAuthInitialized = true;
+    }
+
     window.addEventListener("load", async () => {
 
         authClient = new openpass.OpenPassClient({
@@ -88,7 +103,9 @@
                 authenticationMode: "popup",
                 popupSuccessCallback,
                 popupFailedCallback,
-                visibility: localStorage.getItem("openpass-authenticated") ? "hideOnInit" : "displayOnInit"
+                // This will only display Quick Auth if there is a OpenPass session on the users browser (this uses 3rd party cookies, so it will not work in ITP browsers)
+                visibility: "displayOnInitIfSessionActive",
+                visibilityChangedCallback
             })
         } catch (e) {
             console.error(e);

@@ -26,12 +26,16 @@ async function startServer() {
         return res.render("redirect-manual-button.html");
     });
 
-    app.get("/quick-auth-html", (_, res) => {
-        return res.render("quick-auth-html.html");
+    app.get("/quick-auth-html-popup", (_, res) => {
+        return res.render("quick-auth-html-popup.html");
     });
 
     app.get("/quick-auth-popup", (_, res) => {
         return res.render("quick-auth-popup.html");
+    });
+
+    app.get("/quick-auth-popup-session-check", (_, res) => {
+        return res.render("quick-auth-popup-session-check.html");
     });
 
     app.get("/quick-auth-redirect", (_, res) => {
