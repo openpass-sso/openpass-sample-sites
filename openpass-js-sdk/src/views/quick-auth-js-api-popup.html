@@ -18,12 +18,6 @@
 </head>
 
 <body>
-    <div id="openpass-quick-auth" data-openpass-quick-auth-client-id="7d2a353ef4cd4ea2a45b50bf2fe108ba"
-        data-openpass-quick-auth-show="true" data-openpass-quick-auth-mode="popup"
-        data-openpass-quick-auth-redirect-uri="http://localhost:3011/handle-redirect"
-        data-openpass-quick-auth-popup-success-callback="popupSuccessCallback"
-        data-openpass-quick-auth-popup-failed-callback="popupFailedCallback">
-    </div>
     <main>
         <div id="openpass-quick-auth-demo"></div>
         <div class="container p-5">
@@ -32,8 +26,7 @@
                     <p class="card-text">
                         <a href="/">Back to samples list</a>
                     </p>
-                    <button id="show-quick-auth">Show quick-auth</button>
-                    <button id="hide-quick-auth">Hide quick-auth</button>
+                    <button id="clear-authentication-state">Clear authentication state</button>
                 </div>
             </div>
             <div class="card mt-5 invisible" id="result-card">
@@ -46,24 +39,25 @@
     </main>
 </body>
 
+
+<script src="http://localhost:8885/sdk"></script>
 <script>
+
     let authClient = undefined;
-    let oneTapDiv = document.getElementById("openpass-quick-auth");
     const resultCard = document.getElementById("result-card");
     const resultTitle = document.getElementById("result-title");
     const resultBody = document.getElementById("result-body");
 
-    document.getElementById("show-quick-auth").addEventListener("click", () => {
-        oneTapDiv.setAttribute("data-openpass-quick-auth-show", "true");
-    });
-
-    document.getElementById("hide-quick-auth").addEventListener("click", () => {
-        oneTapDiv.setAttribute("data-openpass-quick-auth-show", "false");
+    document.getElementById("clear-authentication-state").addEventListener("click", () => {
+        localStorage.removeItem("openpass-authenticated");
+        window.location.reload();
     });
 
     function popupSuccessCallback(signInResponse) {
-        oneTapDiv.setAttribute("data-openpass-quick-auth-show", "false");
-        console.log("quick-auth: Popup flow sign in succeeded, email address: " + signInResponse.idToken.email, " setting session storage to true");
+
+        console.log("Popup flow sign in succeeded, email address: " + signInResponse.idToken.email, " setting authentication state to true");
+        localStorage.setItem("openpass-authenticated", true)
+
         resultTitle.innerText = "Success!";
         resultBody.innerText = "Signed in as: " + signInResponse.idToken.email;
         resultCard.classList.add("text-bg-success");
@@ -71,12 +65,36 @@
     }
 
     function popupFailedCallback(error) {
-        console.log("quick-auth: Popup flow sign in failed, error: " + error.message);
+
+        console.log("Popup flow sign in failed, error: " + error.message);
+
         resultTitle.innerText = "Error";
         resultBody.innerText = "Authentication failed: " + error.message;
         resultCard.classList.add("text-bg-danger");
         resultCard.classList.remove("invisible");
     }
+
+    window.addEventListener("load", async () => {
+
+        authClient = new openpass.OpenPassClient({
+            clientId: "7d2a353ef4cd4ea2a45b50bf2fe108ba",
+        });
+
+        console.log(`openpass-authenticated: ${localStorage.getItem("openpass-authenticated")}`)
+
+        try {
+            authClient.renderQuickAuth({
+                parentContainerElementId: "openpass-quick-auth-demo",
+                authenticationMode: "popup",
+                popupSuccessCallback,
+                popupFailedCallback,
+                visibility: localStorage.getItem("openpass-authenticated") ? "hideOnInit" : "displayOnInit"
+            })
+        } catch (e) {
+            console.error(e);
+        }
+
+    });
 </script>
 
 </html>

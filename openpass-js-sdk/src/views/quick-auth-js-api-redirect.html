@@ -26,8 +26,6 @@
                     <p class="card-text">
                         <a href="/">Back to samples list</a>
                     </p>
-                    <button id="show-quick-auth">Show quick-auth</button>
-                    <button id="hide-quick-auth">Hide quick-auth</button>
                 </div>
             </div>
         </div>
@@ -49,7 +47,7 @@
                 redirectUrl: "http://localhost:3011/handle-redirect",
                 popupSuccessCallback,
                 popupFailedCallback,
-                visible: true
+                visibility: "displayOnInit"
             })
         } catch (e) {
             console.error(e);
@@ -57,22 +55,13 @@
 
     });
 
-    document.getElementById("show-quick-auth").addEventListener("click", () => {
-        authClient.show();
-    });
-
-    document.getElementById("hide-quick-auth").addEventListener("click", () => {
-        authClient.hide();
-    });
-
     function popupSuccessCallback(signInResponse) {
-        console.log("quick-auth: Popup flow sign in succeeded, email address: " + signInResponse.idToken.email, " setting session storage to true");
-        authClient.hide();
+        console.log("Popup flow sign in succeeded, email address: " + signInResponse.idToken.email, " setting session storage to true");
     }
 
     function popupFailedCallback(error) {
 
-        console.log("quick-auth: Popup flow sign in failed, error: " + error.message);
+        console.log("Popup flow sign in failed, error: " + error.message);
 
         const resultContainer = document.createElement('div');
         resultContainer.id = "popup-result";
