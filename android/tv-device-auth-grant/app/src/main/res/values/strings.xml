@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">OpenPass Sample TV App</string>
+
+    <string name="welcome">Welcome</string>
+    <string name="welcome_description">What would you like to do?</string>
+
+    <string name="action_sign_in">Sign In</string>
+    <string name="action_sign_out">Sign Out</string>
+
+    <string name="state_signed_out">Signed Out</string>
+    <string name="state_signed_in">Signed In: %s</string>
+    <string name="state_error">Error: %s</string>
+
+    <string name="code">Code: %s</string>
+    <string name="url">URL: %s</string>
+    <string name="code_expired">Token Expired, Try Again</string>
+</resources>

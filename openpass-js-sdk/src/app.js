@@ -26,6 +26,22 @@ async function startServer() {
         return res.render("redirect-manual-button.html");
     });
 
+    app.get("/quick-auth-html-api-popup", (_, res) => {
+        return res.render("quick-auth-html-api-popup.html");
+    });
+
+    app.get("/quick-auth-js-api-popup", (_, res) => {
+        return res.render("quick-auth-js-api-popup.html");
+    });
+
+    app.get("/quick-auth-js-api-popup-session-check", (_, res) => {
+        return res.render("quick-auth-js-api-popup-session-check.html");
+    });
+
+    app.get("/quick-auth-js-api-redirect", (_, res) => {
+        return res.render("quick-auth-js-api-redirect.html");
+    });
+
     app.get("/popup-manual-button", (_, res) => {
         return res.render("popup-manual-button.html");
     });
