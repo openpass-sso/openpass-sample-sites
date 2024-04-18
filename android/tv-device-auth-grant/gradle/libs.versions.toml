@@ -21,7 +21,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-tv-foundation = { group = "androidx.tv", name = "tv-foundation", version.ref = "tvCompose" }
 androidx-tv-material = { group = "androidx.tv", name = "tv-material", version.ref = "tvCompose" }
 
-zxing-core = { group = "com.google.zxing", name = "core", version = "3.4.1" }
+zxing-core = { group = "com.google.zxing", name = "core", version = "3.5.3" }
 
 openpass-core = { group = "com.myopenpass.sdk", name = "openpass-android-sdk", version.ref = "openpass" }
 openpass-tv = { group = "com.myopenpass.sdk", name = "openpass-android-sdk-tv", version.ref = "openpass" }
