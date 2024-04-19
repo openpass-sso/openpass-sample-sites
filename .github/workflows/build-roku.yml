@@ -3,12 +3,12 @@ name: Test Roku Pull Requests
 on:
   pull_request:
     paths:
-      - "roku/**"
+      - "roku/*"
 
   push:
     branches: [main]
     paths:
-      - "roku/**"
+      - "roku/*"
 
   # This allows us to manually run this job
   workflow_dispatch:
@@ -20,6 +20,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          working-directory: roku
 
       - name: Install Node.js
         uses: actions/setup-node@v3
@@ -30,15 +32,20 @@ jobs:
 
       - name: Install Roku Package Manager (ROPM)
         run: npm i ropm -g
+        working-directory: roku
 
       - name: Install BrighterScript
         run: npm install brighterscript -g
+        working-directory: roku
 
       - name: Clean ROPM
         run: ropm clean
+        working-directory: roku
 
       - name: ROPM Install
         run: ropm install
+        working-directory: roku
 
       - name: Run Linter
         run: npm run lint
+        working-directory: roku
