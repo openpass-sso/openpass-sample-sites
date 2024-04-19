@@ -1,0 +1,44 @@
+name: Test Roku Pull Requests
+
+on:
+  pull_request:
+    paths:
+      - "roku/**"
+
+  push:
+    branches: [main]
+    paths:
+      - "roku/**"
+
+  # This allows us to manually run this job
+  workflow_dispatch:
+
+jobs:
+  brightscript-code-checks:
+    name: Code Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
+          scope: "@openpass"
+
+      - name: Install Roku Package Manager (ROPM)
+        run: npm i ropm -g
+
+      - name: Install BrighterScript
+        run: npm install brighterscript -g
+
+      - name: Clean ROPM
+        run: ropm clean
+
+      - name: ROPM Install
+        run: ropm install
+
+      - name: Run Linter
+        run: npm run lint
