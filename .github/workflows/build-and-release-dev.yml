@@ -33,7 +33,7 @@ jobs:
       contents: read
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
    
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
@@ -65,10 +65,10 @@ jobs:
     concurrency:
       group: "deploy-dev-group"
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Checkout kube-system-resources
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: openpass-sso/kube-system-resources
         token: ${{ secrets.GH_ORG_KUBE_SYSTEM_RESOURCES_PAT }}
