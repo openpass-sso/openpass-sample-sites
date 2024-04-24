@@ -25,6 +25,6 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
-    "@openpass/openpass-roku-sdk": "^0.0.1"
+    "@openpass/openpass-roku-sdk": "1.0.2"
   }
 }
