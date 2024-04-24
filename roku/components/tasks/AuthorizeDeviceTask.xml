@@ -5,12 +5,24 @@
 
   <interface>
     <field id="authDevice" type="node" />
+    <field id="authorizedDevice" type="node" />
+    <field id="signedOut" type="node" />
   </interface>
 
 
-  <!-- Import library for authorize device -->
+  <!-- Import library -->
   <script type="text/brightscript"
     uri="pkg:/source/roku_modules/openpass_openpassrokusdk/AuthorizeDeviceTask.brs" />
+  <script type="text/brightscript"
+    uri="pkg:/source/roku_modules/openpass_openpassrokusdk/AuthenticateDeviceTask.brs" />
+  <script type="text/brightscript"
+    uri="pkg:/source/roku_modules/openpass_openpassrokusdk/DecodeIdTokenJwt.brs" />
+  <script type="text/brightscript"
+    uri="pkg:/source/roku_modules/openpass_openpassrokusdk/TokenSession.brs" />
+
+  <script type="text/brightscript"
+    uri="pkg:/source/roku_modules/openpass_openpassrokusdk/OpenPassManager.brs" />
+
   <script type="text/brightscript" uri="AuthorizeDeviceTask.brs" />
 
 </component>

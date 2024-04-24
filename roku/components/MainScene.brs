@@ -6,3 +6,17 @@ sub Init()
   InitScreenStack()
   DeviceAuthorization()
 end sub
+
+
+function OnKeyEvent(key as string, press as boolean) as boolean
+  result = false
+
+  if press
+    if key = "options"
+      SignOut()
+      result = true
+    end if
+
+  end if
+  return result
+end function
