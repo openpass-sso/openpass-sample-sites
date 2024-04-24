@@ -5,6 +5,7 @@
 
   <interface>
     <field id="authDevice" type="node" onChange="OnAuthDeviceSet" />
+    <field id="authorizedDevice" type="node" onChange="OnAuthorizedSet" />
   </interface>
 
   <children>

@@ -19,6 +19,11 @@ sub OnAuthDeviceSet(value)
   end if
 end sub
 
+sub OnAuthorizedSet(value)
+  print value.getData()
+  m.descriptionLabel.text = "Welcome"
+end sub
+
 
 sub OnQRCodeSet(value)
   code = value.getData()
