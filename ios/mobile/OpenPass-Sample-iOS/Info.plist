@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>OpenPassClientId</key>
+	<string>9ede0d6122ed40c0ab0207720974ca12</string>
+	<key>OpenPassRedirectHost</key>
+	<string>com.myopenpass.sample</string>
+</dict>
+</plist>
