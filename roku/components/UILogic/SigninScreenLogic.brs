@@ -23,7 +23,7 @@ end sub
 
 ' Get Authorized information
 sub OnAuthenticateTaskCompleted()
-  print "authorizeed"
+  print "authorized"
   print m.authTask.authorizedDevice
   m.SigningScreen.authorizedDevice = m.authTask.authorizedDevice
   ' Do what you need with the response

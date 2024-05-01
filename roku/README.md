@@ -2,6 +2,10 @@
 
 A simple reference example of a channel implementing the OpenPass SSO
 
+## Main Package
+
+You can find the package and documentation [here](https://github.com/openpass-sso/openpass-roku-sdk)
+
 ## Requirements and Usage
 
 In order to use this SDK you will need the following requirements

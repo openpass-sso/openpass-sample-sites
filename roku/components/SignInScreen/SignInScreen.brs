@@ -20,8 +20,17 @@ sub OnAuthDeviceSet(value)
 end sub
 
 sub OnAuthorizedSet(value)
-  print value.getData()
+  data = value.getData()
   m.descriptionLabel.text = "Welcome"
+  if data["user_data"] <> invalid
+    m.descriptionLabel.text = "Welcome " + data["user_data"]["email"]
+  end if
+
+  m.poster = m.top.FindNode("poster")
+  m.poster.visible = false
+  m.qrLabel = m.top.FindNode("qrLabel")
+  m.qrLabel.text = invalid
+
 end sub
 
 
@@ -36,6 +45,7 @@ function SetCode(code as string)
   m.poster = m.top.FindNode("poster")
   path = "https://myopenpass.com/code?user_code=" + code
   m.poster.uri = "https://quickchart.io/qr?text=" + path + "&margin=1"
+  m.poster.visible = true
   m.qrLabel = m.top.FindNode("qrLabel")
   m.qrLabel.text = code
   m.qrLabel.color = "0x000000"
