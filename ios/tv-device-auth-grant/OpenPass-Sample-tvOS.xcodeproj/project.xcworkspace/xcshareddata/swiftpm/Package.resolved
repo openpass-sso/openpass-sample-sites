@@ -1,0 +1,15 @@
+{
+  "originHash" : "5ec664ce708ea230b41325ace93bc6082dbae674b37961a80a1649d297f0645d",
+  "pins" : [
+    {
+      "identity" : "openpass-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/openpass-sso/openpass-ios-sdk",
+      "state" : {
+        "branch" : "main",
+        "revision" : "aa6bb0c8a56df8040e6e9924d77f045b5ad99ec2"
+      }
+    }
+  ],
+  "version" : 3
+}
