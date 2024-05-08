@@ -12,22 +12,7 @@
 
   <!-- Import library -->
   <script type="text/brightscript"
-    uri="pkg:/source/roku_modules/openpass_openpassrokusdk/Constants.brs" />
-  <script type="text/brightscript"
-    uri="pkg:/source/roku_modules/openpass_openpassrokusdk/AuthorizeDeviceTask.brs" />
-  <script type="text/brightscript"
-    uri="pkg:/source/roku_modules/openpass_openpassrokusdk/DeviceTokenTask.brs" />
-  <script type="text/brightscript"
-    uri="pkg:/source/roku_modules/openpass_openpassrokusdk/DecodeIdTokenJwt.brs" />
-  <script type="text/brightscript"
-    uri="pkg:/source/roku_modules/openpass_openpassrokusdk/TokenSession.brs" />
-
-  <script type="text/brightscript"
-    uri="pkg:/source/roku_modules/openpass_openpassrokusdk/OpenPassManager.brs" />
-  <script type="text/brightscript"
-    uri="pkg:/source/roku_modules/openpass_openpassrokusdk/utils/Logger.brs" />
-  <script type="text/brightscript"
-    uri="pkg:/source/roku_modules/openpass_openpassrokusdk/utils/LogOperations.brs" />
+    uri="pkg:/source/roku_modules/openpass_openpassrokusdk/dist/OpenPass.brs" />
 
   <script type="text/brightscript" uri="AuthorizeDeviceTask.brs" />
 
