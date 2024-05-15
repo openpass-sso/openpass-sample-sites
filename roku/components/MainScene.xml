@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<component name="MainScene" extends="Scene">
+
+  <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+  
+  <script type="text/brightscript" uri="pkg:/components/UILogic/ScreenStackLogic.brs" />
+  <script type="text/brightscript" uri="pkg:/components/UILogic/SigninScreenLogic.brs" />
+  
+  <children>
+    <!-- Logo -->
+    <Overhang
+      id="overhang"
+      showOptions="false"
+      showClock="false"
+      logoUri="pkg:/images/openpass-icon.png"
+      translation="[0,30]"
+      optionsText=""
+      title=""
+    />
+
+    <!-- Loading indicator - should be visible only on waiting for requests to be done -->
+    <Label
+      id="loadingIndicator"
+      text="Loading..."
+      width="1280"
+      height="720"
+      translation="[0,0]"
+      horizAlign="center"
+      vertAlign="center"
+      visible="false"
+      font="font:MediumBoldSystemFont"
+    />
+  </children>
+
+</component>

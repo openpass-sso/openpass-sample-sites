@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<component name="AuthorizeDeviceTask" extends="Task">
+
+
+  <interface>
+    <field id="authDevice" type="node" />
+    <field id="authorizedDevice" type="node" />
+    <field id="signedOut" type="node" />
+  </interface>
+
+
+  <!-- Import library -->
+  <script type="text/brightscript"
+    uri="pkg:/source/roku_modules/openpass_openpassrokusdk/dist/OpenPass.brs" />
+
+  <script type="text/brightscript" uri="AuthorizeDeviceTask.brs" />
+
+</component>

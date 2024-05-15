@@ -1,0 +1,30 @@
+{
+  "ropm": {
+    "packageRootDir": "."
+  },
+  "name": "sample",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "lint": "bsc --create-package false --copy-to-staging false"
+  },
+  "keywords": [
+    "ropm",
+    "OpenPass",
+    "SSO",
+    "PKCE",
+    "login",
+    "sign in",
+    "TTD",
+    "The Trade Desk",
+    "TheTradeDesk",
+    "Roku",
+    "Sample"
+  ],
+  "author": "The Trade Desk",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "@openpass/openpass-roku-sdk": "1.0.10"
+  }
+}
