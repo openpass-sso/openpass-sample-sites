@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/openpass-sso/openpass-ios-sdk",
       "state" : {
-        "branch" : "main",
-        "revision" : "aa6bb0c8a56df8040e6e9924d77f045b5ad99ec2"
+        "revision" : "1ea8748a7ccb9e004f39b458b9a3ac5d886e2f0f",
+        "version" : "1.1.0"
       }
     }
   ],
