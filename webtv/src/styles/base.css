@@ -1,0 +1,15 @@
+html {
+  height: 100vh;
+}
+
+body {
+  height: 100vh
+}
+
+#__next {
+  height: 100%;
+}
+
+.chakra-modal__content {
+  height: 500px;
+}
