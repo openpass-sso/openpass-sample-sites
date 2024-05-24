@@ -1,0 +1,10 @@
+{
+  "id": "com.webapp-sample.app",
+  "version": "0.0.1",
+  "vendor": "The TradeDesk",
+  "type": "web",
+  "main": "index.html",
+  "title": "Open Pass WebTv",
+  "icon": "./images/channel-poster_fhd.png",
+  "largeIcon": "./images/channel-poster_sd.png"
+}
