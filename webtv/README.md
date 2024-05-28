@@ -39,16 +39,16 @@ pnpm build
 bun build
 ```
 
-After the build command was triggered the `postbuild` command should be automatically triggered, this command will trigger the internal pipelines to build the app for each supported technology.
+After the build command was triggered the `manual-build` command should be triggered by the user, this command will trigger the internal pipelines to build the app for each supported technology.
 
 ```bash
-npm run postbuild
+npm run manual-build
 # or
-yarn postbuild
+yarn manual-build
 # or
-pnpm postbuild
+pnpm manual-build
 # or
-bun postbuild
+bun manual-build
 ```
 
 You can find the build for each platform under `applications/<techonology>/package` folder, each folder will have the cod to manually build a package if necessary.
