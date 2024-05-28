@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "postbuild": "node ./pipelines/build.js",
+    "manual-build": "node ./pipelines/build.js",
     "lint": "next lint"
   },
   "dependencies": {
