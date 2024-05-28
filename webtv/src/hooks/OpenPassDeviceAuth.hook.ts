@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { UseStorageSession } from "./UseStorageSession";
 
 type UseOpenPassDeviceAuthProps = {
-  onError: () => void;
+  onError: (error: any) => void;
   onAuth: () => void;
 };
 
@@ -38,13 +38,16 @@ export const UseOpenPassDeviceAuth = ({
     });
   }, []);
 
-  const _errorHandler = useCallback(() => {
-    if (onError) {
-      onError();
-    }
-    setDeviceAuthenticated(false);
-    setPollingEnabled(false);
-  }, [onError]);
+  const _errorHandler = useCallback(
+    (error: any) => {
+      if (onError) {
+        onError(error);
+      }
+      setDeviceAuthenticated(false);
+      setPollingEnabled(false);
+    },
+    [onError]
+  );
 
   // Get Device Auth Information
   const fetchDeviceToken = useCallback(async () => {
@@ -55,7 +58,8 @@ export const UseOpenPassDeviceAuth = ({
       setDeviceAuth(authorizeDeviceDataResponse);
       setPollingEnabled(true);
     } catch (error) {
-      _errorHandler();
+      _errorHandler(error);
+      setPollingEnabled(false);
     }
   }, [
     AuthorizeDeviceOptions,
@@ -79,10 +83,12 @@ export const UseOpenPassDeviceAuth = ({
       }
 
       if (!ALLOWED_STATUSES.includes(tokenResponse?.status)) {
-        _errorHandler();
+        _errorHandler(tokenResponse);
+        setPollingEnabled(false);
       }
     } catch (error) {
-      _errorHandler();
+      _errorHandler(error);
+      setPollingEnabled(false);
     }
   }, [openPassClient, deviceAuth, SetSession, _errorHandler, onAuth]);
 

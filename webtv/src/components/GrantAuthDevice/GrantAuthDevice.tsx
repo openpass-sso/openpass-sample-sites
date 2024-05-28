@@ -14,8 +14,8 @@ import {
   Box,
   Divider,
   Text,
+  Avatar,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 
 type GrantAuthDeviceProps = {
@@ -76,8 +76,31 @@ const SignIn = ({
   );
 };
 
-const SignedIn = () => {
-  return <></>;
+const SignedIn = ({ user }: { user: any }) => {
+  return (
+    <>
+      <Box
+        w="full"
+        display={"flex"}
+        alignItems={"center"}
+        flexDirection={"column"}
+        justifyContent={"center"}
+      >
+        <Divider />
+        <Text fontSize="2xl" marginTop={"20px"} fontWeight={"bold"}>
+          Welcome {user?.idToken?.email}
+        </Text>
+
+        <Avatar
+          name="User Avatar"
+          height={"200px"}
+          width={"200px"}
+          margin={"15px 15px"}
+          src="https://i.pravatar.cc/300"
+        />
+      </Box>
+    </>
+  );
 };
 
 const CodeDrawer = ({
@@ -114,25 +137,27 @@ const CodeDrawer = ({
         </Box>
       </DrawerHeader>
 
-      {user && <SignedIn />}
+      {user && <SignedIn user={user} />}
       {!user && <SignIn deviceAuth={deviceAuth} errorState={errorState} />}
     </DrawerContent>
   );
 };
 const GrantAuthDevice = ({ shouldOpen, onClosed }: GrantAuthDeviceProps) => {
   const [errorState, setErrorState] = useState(false);
+  const [currentUser, setCurrentUser] = useState<any>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user, setUser } = useState<any>(null);
   const { GetFromKey } = useLocalStorage();
 
   const { deviceAuth } = UseOpenPassDeviceAuth({
-    onError: () => {
+    onError: (error) => {
+      console.log("error", error);
       setErrorState(true);
+      setCurrentUser(null);
     },
     onAuth: () => {
       const data = GetFromKey(AUTH_SESSION_KEY);
       if (data) {
-        setUser(data);
+        setCurrentUser(data);
       }
     },
   });
@@ -154,7 +179,11 @@ const GrantAuthDevice = ({ shouldOpen, onClosed }: GrantAuthDeviceProps) => {
       size={"xl"}
     >
       <DrawerOverlay />
-      <CodeDrawer deviceAuth={deviceAuth} errorState={errorState} user={user} />
+      <CodeDrawer
+        deviceAuth={deviceAuth}
+        errorState={errorState}
+        user={currentUser}
+      />
     </Drawer>
   );
 };
