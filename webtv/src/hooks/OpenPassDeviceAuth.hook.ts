@@ -1,10 +1,9 @@
 import { OpenPassClient } from "@openpass/openpass-js-sdk";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { UseStorageSession } from "./UseStorageSession";
 
 type UseOpenPassDeviceAuthProps = {
   onError: (error: any) => void;
-  onAuth: () => void;
+  onAuth: (data: any) => void;
 };
 
 enum STATUSES {
@@ -28,7 +27,6 @@ export const UseOpenPassDeviceAuth = ({
   const [deviceAuthenticated, setDeviceAuthenticated] =
     useState<boolean>(false);
 
-  const { SetSession } = UseStorageSession();
   const timerIdRef = useRef<any>(null);
 
   const openPassClient = useMemo(() => {
@@ -77,9 +75,8 @@ export const UseOpenPassDeviceAuth = ({
 
       if (tokenResponse?.status === STATUSES.OK) {
         const data = tokenResponse?.tokens || {};
-        SetSession(data);
         setDeviceAuthenticated(true);
-        onAuth();
+        onAuth(data);
       }
 
       if (!ALLOWED_STATUSES.includes(tokenResponse?.status)) {
@@ -90,7 +87,7 @@ export const UseOpenPassDeviceAuth = ({
       _errorHandler(error);
       setPollingEnabled(false);
     }
-  }, [openPassClient, deviceAuth, SetSession, _errorHandler, onAuth]);
+  }, [openPassClient, deviceAuth, _errorHandler, onAuth]);
 
   useEffect(() => {
     if (!deviceAuth) {

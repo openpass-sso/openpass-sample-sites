@@ -1,5 +1,4 @@
 import { AUTH_SESSION_KEY } from "@/constants/auth.constants";
-import { useLocalStorage } from "@/hooks/LocalStorage.hook";
 import { UseOpenPassDeviceAuth } from "@/hooks/OpenPassDeviceAuth.hook";
 import {
   Drawer,
@@ -146,16 +145,13 @@ const GrantAuthDevice = ({ shouldOpen, onClosed }: GrantAuthDeviceProps) => {
   const [errorState, setErrorState] = useState(false);
   const [currentUser, setCurrentUser] = useState<any>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { GetFromKey } = useLocalStorage();
 
   const { deviceAuth } = UseOpenPassDeviceAuth({
     onError: (error) => {
-      console.log("error", error);
       setErrorState(true);
       setCurrentUser(null);
     },
-    onAuth: () => {
-      const data = GetFromKey(AUTH_SESSION_KEY);
+    onAuth: (data) => {
       if (data) {
         setCurrentUser(data);
       }
