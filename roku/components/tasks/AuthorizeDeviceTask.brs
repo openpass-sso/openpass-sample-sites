@@ -16,22 +16,25 @@ sub AuthorizeDevice()
 
   m.op.Init(clientId, AuthCallback, optionalParams)
 
-  ' Start sign in process
-  m.op.SignIn()
+  currentToken = m.op.CurrentToken()
 
-  ' m.op.SignOut()
+  if currentToken = invalid
+    m.op.SignIn()
+  else if currentToken <> invalid
+    m.op.SignOut()
+    m.op.SignIn()
+  end if
+
 end sub
 
 sub AuthCallback(state, data)
-
-  print state
   _states = {
-    "SignedIn": 0,
-    "SignedOut": 1,
-    "Error": 2,
-    "Loading": 3,
+    "NotInitialized": 0,
+    "Loading": 1,
+    "SignedIn": 2,
+    "SignedOut": 3,
     "Polling": 4,
-    "Refreshable": 5 ' Signed In but needs to refresh
+    "Error": 5
   }
 
   if state = _states.SignedIn
