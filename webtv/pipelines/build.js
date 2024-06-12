@@ -1,14 +1,17 @@
 const InsertScripts = require("./insert-script.plugin");
-const CreateWebOs = require("./create-webos.plugin");
+const CreateBaseWebOs = require("./base-webos.plugin");
+const CreateWebOs = require("./build-webos.plugin")
 
 const BuildWebOS = async () => {
   try {
+    console.info("building: Creating WebOS structure");
+    await CreateBaseWebOs();
+
     console.info("scripts: Updating html files with script tags");
     await InsertScripts("webos");
     console.info("✓ scripts: done");
 
-    console.info("building: Creating WebOS structure");
-    await CreateWebOs();
+    await CreateWebOs()
     console.info("✓ building: done");
   } catch (error) {
     throw error;

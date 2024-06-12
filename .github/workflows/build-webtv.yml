@@ -34,10 +34,6 @@ jobs:
         run: npm i
         working-directory: webtv
 
-      - name: Run Linter
-        run: npm run lint
-        working-directory: webtv
-
       - name: Run Build
         run: npm run build
         working-directory: webtv

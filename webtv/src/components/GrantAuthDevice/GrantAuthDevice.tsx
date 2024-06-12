@@ -1,5 +1,5 @@
-import { AUTH_SESSION_KEY } from "@/constants/auth.constants";
-import { UseOpenPassDeviceAuth } from "@/hooks/OpenPassDeviceAuth.hook";
+import { AUTH_SESSION_KEY } from "../../constants/auth.constants";
+import { UseOpenPassDeviceAuth } from "../../hooks/OpenPassDeviceAuth.hook";
 import {
   Drawer,
   DrawerBody,

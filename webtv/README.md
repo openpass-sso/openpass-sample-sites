@@ -1,6 +1,6 @@
 # OpenPass Sample Demo App
 
-This is a [Next.js](https://nextjs.org/) project that creates a generic app to be compiled to multiple WebTV Technologies.
+This is a [React.js](https://create-react-app.dev/) project that creates a generic app to be compiled to multiple WebTV Technologies.
 
 This app currently implements [OpenPass Javascript SDK](https://github.com/openpass-sso/openpass-js-sdk) to do the authorization flow for the app.
 
@@ -8,6 +8,10 @@ Current WebTV technologies supported:
 
 * [WebOS](https://www.webosose.org/docs/home/)
 * [Tizen](https://developer.tizen.org/)
+
+## Recommended Versions
+
+* Use Node.js 16
 
 ## Getting Started
 
@@ -27,7 +31,32 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Building the App
 
-First run the `build` command, this will automatically generate a Next.js build with all the HTML code necessary for the base WebTV app.
+In order to build the app for multiple packages (WebOS or Tizen) first you will need to install the necessary dependencies for each platform.
+
+### WebOS
+
+Install the [WebOS CLI](https://www.webosose.org/docs/tools/sdk/cli/cli-user-guide/) using npm
+
+```bash
+npm install --global @webos-tools/cli
+```
+
+Verify the installation was completed by checking the version of `ares`
+
+```bash
+ares --V
+```
+
+if a result it's prompt means it was installed successfully
+
+### Tizen
+
+TBD
+
+
+### Next steps
+
+First run the `build` command, this will automatically generate a React app build with all the HTML code necessary for the base WebTV app.
 
 ```bash
 npm run build
@@ -39,16 +68,16 @@ pnpm build
 bun build
 ```
 
-After the build command was triggered the `manual-build` command should be triggered by the user, this command will trigger the internal pipelines to build the app for each supported technology.
+After the build command was triggered the `postbuild` command should be automatically triggered, this command will trigger the internal pipelines to build the app for each supported technology.
 
 ```bash
-npm run manual-build
+npm run postbuild
 # or
-yarn manual-build
+yarn postbuild
 # or
-pnpm manual-build
+pnpm postbuild
 # or
-bun manual-build
+bun postbuild
 ```
 
 You can find the build for each platform under `applications/<techonology>/package` folder, each folder will have the cod to manually build a package if necessary.

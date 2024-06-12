@@ -1,9 +1,8 @@
 const fs = require("fs");
 const fsPromises = fs.promises;
 const path = require("path");
-const { exec } = require("child_process");
 
-const CreateWebOs = async () => {
+const CreateBasesWebOs = async () => {
   const dir = path.join(__dirname, "..", "applications/WebOS");
 
   const createPath = async (dir) => {
@@ -30,34 +29,25 @@ const CreateWebOs = async () => {
 
   const copyFilesFromBuild = async () => {
     try {
-      const jsFiles = path.join(__dirname, "..", "out", "_next");
-      fsPromises.cp(jsFiles, `${dir}/_next`, { recursive: true });
+      const jsFiles = path.join(__dirname, "..", "build", "static");
+      fsPromises.cp(jsFiles, `${dir}/static`, { recursive: true });
 
-      const imagesFiles = path.join(__dirname, "..", "out", "images");
+      const imagesFiles = path.join(__dirname, "..", "build", "images");
       fsPromises.cp(imagesFiles, `${dir}/images`, { recursive: true });
 
-      const indexFile = path.join(__dirname, "..", "out", "index.html");
+      const indexFile = path.join(__dirname, "..", "build", "index.html");
       fsPromises.copyFile(indexFile, `${dir}/index.html`);
 
-      const logoFile = path.join(__dirname, "..", "out", "openpass-logo.svg");
+      const logoFile = path.join(__dirname, "..", "build", "openpass-logo.svg");
       fsPromises.copyFile(logoFile, `${dir}/openpass-logo.svg`);
+
+      const assetManifest = path.join(__dirname, "..", "build", "asset-manifest.json");
+      fsPromises.copyFile(assetManifest, `${dir}/asset-manifest.json`);
+
     } catch (error) {
       console.error(`Error copying resources:`, err);
       throw err;
     }
-  };
-
-  const createBuild = () => {
-    exec(`ares-package ${dir} -o ${dir}/package`, (err, stdout, stderr) => {
-      if (err) {
-        // node couldn't execute the command
-        return;
-      }
-
-      // the *entire* stdout and stderr (buffered)
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
-    });
   };
 
   await createPath(dir);
@@ -67,8 +57,6 @@ const CreateWebOs = async () => {
 
   await copyFilesFromBuild();
   console.info("✓ building: Copied code files");
-
-  await createBuild();
 };
 
-module.exports = CreateWebOs;
+module.exports = CreateBasesWebOs;

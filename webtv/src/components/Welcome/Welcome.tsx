@@ -1,15 +1,7 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import OpenPassButton from "../OpenPassButton/OpenPassButton";
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-
-const GrantAuthDevice = dynamic(
-  () => import("../GrantAuthDevice/GrantAuthDevice"),
-  {
-    ssr: false,
-    loading: () => <p>Loading...</p>,
-  }
-);
+import GrantAuthDevice from "../GrantAuthDevice/GrantAuthDevice";
 
 const Welcome = () => {
   const [isOpen, setIsOpen] = useState(false);

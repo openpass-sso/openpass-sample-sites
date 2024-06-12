@@ -6,7 +6,7 @@ body {
   height: 100vh
 }
 
-#__next {
+#root {
   height: 100%;
 }
 

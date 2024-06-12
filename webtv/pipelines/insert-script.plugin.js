@@ -19,14 +19,32 @@ const InsertScripts = async (buildType) => {
     return;
   }
 
-  const buildDir = path.join(__dirname, "..", "out");
+  const appTypes = {
+    webos: "WebOS",
+    tizen: "Tizen",
+  };
+
+  const buildDir = path.join(
+    __dirname,
+    "..",
+    `applications/${appTypes[buildType]}`
+  );
 
   const insertScript = async (filePath) => {
     try {
       let data = await fs.readFile(filePath, "utf8");
 
       if (!data.includes(scriptTag)) {
-        const updatedData = data.replace("</body>", `${scriptTag}</body>`);
+        const replacement = "";
+
+        const updatedData = data
+          .replace("</body>", `${scriptTag}</body>`)
+          .replace(/crossorigin=""/g, replacement)
+          // .replace(/static/g, replacement)
+          // .replace(/nomodule=""/g, replacement)
+          // .replace(/defer=""/g, replacement)
+          .replace(/\/static\//g, './static/');
+
         await fs.writeFile(filePath, updatedData, { encoding: "utf8" });
         console.log(`Inserted script into ${filePath}`);
       }

@@ -31,7 +31,7 @@ export const UseOpenPassDeviceAuth = ({
 
   const openPassClient = useMemo(() => {
     return new OpenPassClient({
-      clientId: process.env.NEXT_PUBLIC_OPEN_PASS_CLIENT_ID || "",
+      clientId: process.env.REACT_APP_OPEN_PASS_CLIENT_ID || "",
       baseUrl: "https://auth.myopenpass.com/",
     });
   }, []);
