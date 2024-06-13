@@ -24,14 +24,14 @@ jobs:
           working-directory: webtv
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "18.x"
           registry-url: "https://registry.npmjs.org"
           scope: "@openpass"
 
       - name: Install Dependencies
-        run: npm i
+        run: npm i --force
         working-directory: webtv
 
       - name: Run Build
