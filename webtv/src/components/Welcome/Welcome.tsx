@@ -3,6 +3,10 @@ import OpenPassButton from "../OpenPassButton/OpenPassButton";
 import { useEffect, useState } from "react";
 import GrantAuthDevice from "../GrantAuthDevice/GrantAuthDevice";
 
+const allowedDirections = ["up", "down", "left", "right"];
+const allowedKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+const allowedKeyCodes = [37, 38, 39, 40];
+
 const Welcome = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -10,18 +14,24 @@ const Welcome = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleButtonClick = (event: KeyboardEvent) => {
+  const handleButtonClick = (event: KeyboardEvent | any) => {
+    const { key, direction, keyCode } = event;
+
     if (
-      event.key === "ArrowUp" ||
-      event.key === "ArrowDown" ||
-      event.key === "ArrowLeft" ||
-      event.key === "ArrowRight"
+      allowedDirections?.includes(direction?.toLowerCase()) ||
+      allowedKeys.includes(key) ||
+      allowedKeyCodes.includes(keyCode)
     ) {
       const OpenPassButton = document.getElementById("OpenPassButton");
       event.preventDefault();
       if (OpenPassButton) {
         OpenPassButton.focus();
       }
+    }
+
+    if (keyCode == 13) {
+      event.preventDefault();
+      handleOnClick();
     }
   };
 
@@ -34,11 +44,7 @@ const Welcome = () => {
   });
 
   return (
-    <Box
-      h="full"
-      bgGradient="#FFFFFF"
-      color={"white"}
-    >
+    <Box h="full" bgGradient="#FFFFFF" color={"white"}>
       <Flex h="full">
         <Box w="full" h="full">
           <Box
@@ -68,7 +74,6 @@ const Welcome = () => {
             <OpenPassButton onClick={() => handleOnClick()} />
           </Box>
         </Box>
-
       </Flex>
 
       {isOpen && (

@@ -10,11 +10,11 @@ const InsertScripts = async (buildType) => {
         '<script src="webOSTVjs-1.2.4/webOSTV.js"></script> <script src="webOSTVjs-1.2.4/webOSTV-dev.js"></script>';
       break;
     case "tizen":
-      scriptTag = '<script src="webOSTVjs-1.2.4/webOSTV.js"></script>';
+      scriptTag = '<script id="tizen"></script>';
       break;
   }
 
-  if (!scriptTag) {
+  if (!scriptTag && buildType !== "tizen") {
     console.error("Error - no script found");
     return;
   }
@@ -37,13 +37,16 @@ const InsertScripts = async (buildType) => {
       if (!data.includes(scriptTag)) {
         const replacement = "";
 
+        const scriptPathReplacement =
+          buildType === "tizen" ? "./" : "./static/";
+
         const updatedData = data
           .replace("</body>", `${scriptTag}</body>`)
           .replace(/crossorigin=""/g, replacement)
           // .replace(/static/g, replacement)
           // .replace(/nomodule=""/g, replacement)
           // .replace(/defer=""/g, replacement)
-          .replace(/\/static\//g, './static/');
+          .replace(/\/static\//g, scriptPathReplacement);
 
         await fs.writeFile(filePath, updatedData, { encoding: "utf8" });
         console.log(`Inserted script into ${filePath}`);

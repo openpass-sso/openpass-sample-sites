@@ -6,12 +6,12 @@ This app currently implements [OpenPass Javascript SDK](https://github.com/openp
 
 Current WebTV technologies supported:
 
-* [WebOS](https://www.webosose.org/docs/home/)
-* [Tizen](https://developer.tizen.org/)
+- [WebOS](https://www.webosose.org/docs/home/)
+- [Tizen](https://developer.tizen.org/)
 
 ## Recommended Versions
 
-* Use Node.js 16
+- Use Node.js 16
 
 ## Getting Started
 
@@ -51,8 +51,17 @@ if a result it's prompt means it was installed successfully
 
 ### Tizen
 
-TBD
+1. Download Tizen Studio from this page: https://developer.tizen.org/ko/development/tizen-studio/download?langredirect=
+2. After opening the Installer.app file, you have to Accept the Software License Agreement to proceed.
+3. Select the SDK and data location for the installation, then click Install to install Tizen Studio
+4. To complete the basic installation, click Finish. Developers can install additional packages according to their requirements using the [Package Manager](https://developer.tizen.org/development/tizen-studio/download/configuring-package-manager)
+5. Install the following packages:
 
+- 8.0 Tizen (the whole set)
+- Go to the "Extension SDK" tab and install `Tv Extensions - 8.0` under the `extras` folder
+- Under `extras` folder find `IOT-Headless 7.0` and install it
+
+6. You will be able to import the project from `applications/Tizen` into your editor and run the application from it.
 
 ### Next steps
 
@@ -68,20 +77,20 @@ pnpm build
 bun build
 ```
 
-After the build command was triggered the `postbuild` command should be automatically triggered, this command will trigger the internal pipelines to build the app for each supported technology.
+After the build command was triggered the `manual-build` command should be automatically triggered, this command will trigger the internal pipelines to build the app for each supported technology.
 
 ```bash
-npm run postbuild
+npm run manual-build
 # or
-yarn postbuild
+yarn manual-build
 # or
-pnpm postbuild
+pnpm manual-build
 # or
-bun postbuild
+bun manual-build
 ```
 
 You can find the build for each platform under `applications/<techonology>/package` folder, each folder will have the cod to manually build a package if necessary.
 
 ## Resources
 
-This repository has a `resources` folder which contain all the static files needed to build each WebTV app, like `json` config files or static javascript code related to each library package
+This repository has a `resources` folder which contain all the static files needed to build each WebTV app, like `json` config files, `xml` settings or static javascript code related to each library package
