@@ -4,6 +4,7 @@ const path = require("path");
 
 const CreateBaseTizen= async () => {
   const dir = path.join(__dirname, "..", "applications/Tizen");
+  const subFolder = path.join(__dirname, "..", "applications/Tizen/OpenPassWebTv");
 
   const createPath = async (dir) => {
     try {
@@ -20,7 +21,7 @@ const CreateBaseTizen= async () => {
   const copyFilesFromResources = async () => {
     const resourcesDir = path.join(__dirname, "..", "resources", "Tizen");
     try {
-      fsPromises.cp(resourcesDir, dir, { recursive: true });
+      fsPromises.cp(resourcesDir, subFolder, { recursive: true });
     } catch (error) {
       console.error(`Error copying resources:`, err);
       throw err;
@@ -30,19 +31,16 @@ const CreateBaseTizen= async () => {
   const copyFilesFromBuild = async () => {
     try {
       const jsFiles = path.join(__dirname, "..", "build", "static");
-      fsPromises.cp(jsFiles, `${dir}`, { recursive: true });
+      fsPromises.cp(jsFiles, `${subFolder}`, { recursive: true });
 
       const imagesFiles = path.join(__dirname, "..", "build", "images");
-      fsPromises.cp(imagesFiles, `${dir}/images`, { recursive: true });
+      fsPromises.cp(imagesFiles, `${subFolder}/images`, { recursive: true });
 
       const indexFile = path.join(__dirname, "..", "build", "index.html");
-      fsPromises.copyFile(indexFile, `${dir}/index.html`);
+      fsPromises.copyFile(indexFile, `${subFolder}/index.html`);
 
       const logoFile = path.join(__dirname, "..", "build", "openpass-logo.svg");
-      fsPromises.copyFile(logoFile, `${dir}/openpass-logo.svg`);
-
-      const assetManifest = path.join(__dirname, "..", "build", "asset-manifest.json");
-      fsPromises.copyFile(assetManifest, `${dir}/asset-manifest.json`);
+      fsPromises.copyFile(logoFile, `${subFolder}/openpass-logo.svg`);
 
     } catch (error) {
       console.error(`Error copying resources:`, err);
@@ -51,6 +49,7 @@ const CreateBaseTizen= async () => {
   };
 
   await createPath(dir);
+  await createPath(subFolder);
   console.info("✓ building: Created root folder");
   await copyFilesFromResources();
   console.info("✓ building: Copied resources");
