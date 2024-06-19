@@ -43,9 +43,6 @@ const InsertScripts = async (buildType) => {
         const updatedData = data
           .replace("</body>", `${scriptTag}</body>`)
           .replace(/crossorigin=""/g, replacement)
-          // .replace(/static/g, replacement)
-          // .replace(/nomodule=""/g, replacement)
-          // .replace(/defer=""/g, replacement)
           .replace(/\/static\//g, scriptPathReplacement);
 
         await fs.writeFile(filePath, updatedData, { encoding: "utf8" });
