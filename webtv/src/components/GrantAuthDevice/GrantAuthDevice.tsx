@@ -1,4 +1,3 @@
-import { AUTH_SESSION_KEY } from "../../constants/auth.constants";
 import { UseOpenPassDeviceAuth } from "../../hooks/OpenPassDeviceAuth.hook";
 import {
   Drawer,
@@ -30,9 +29,7 @@ const SignIn = ({
   deviceAuth: { userCode?: string; verificationUriComplete?: string };
 }) => {
   const getQRCodeURl = useMemo(() => {
-    const _userCode = deviceAuth?.userCode;
-    const _path = `https://myopenpass.com/code?user_code=${_userCode}`;
-    const qrQuery = `https://quickchart.io/qr?margin=1&text=${_path}`;
+    const qrQuery = `https://quickchart.io/qr?margin=1&text=${deviceAuth?.verificationUriComplete}`;
 
     return qrQuery;
   }, [deviceAuth]);
