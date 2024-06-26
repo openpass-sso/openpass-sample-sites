@@ -11,11 +11,23 @@ Current WebTV technologies supported:
 
 ## Recommended Versions
 
-- Use Node.js 16
+- Use Node.js 18
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+# or
+yarn
+# or
+pnpm install
+# or
+bun install
+```
+
+Then you can run the development server:
 
 ```bash
 npm run dev
