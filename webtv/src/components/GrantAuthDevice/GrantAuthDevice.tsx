@@ -115,9 +115,9 @@ const CodeDrawer = ({
         <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
           <Image
             alt="StarFin"
-            width={"250px"}
-            height={"115px"}
-            src={"images/thetradedesk.png"}
+            width={"287px"}
+            height={"72px"}
+            src={"images/starfin.png"}
           ></Image>
           <Divider
             margin={"0 20px"}
@@ -145,6 +145,7 @@ const GrantAuthDevice = ({ shouldOpen, onClosed }: GrantAuthDeviceProps) => {
 
   const { deviceAuth } = UseOpenPassDeviceAuth({
     onError: (error) => {
+      console.log(error)
       setErrorState(true);
       setCurrentUser(null);
     },

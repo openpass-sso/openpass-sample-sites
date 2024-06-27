@@ -57,10 +57,10 @@ const Welcome = () => {
             margin={"0 auto"}
           >
             <Image
-              width={"320px"}
-              height={"150px"}
+              width={"287px"}
+              height={"72px"}
               alt="StarFin"
-              src="images/thetradedesk.png"
+              src="images/starfin.png"
             ></Image>
             <Text
               fontSize="4xl"

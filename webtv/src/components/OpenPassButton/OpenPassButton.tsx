@@ -16,11 +16,11 @@ const OpenPassButton = ({ onClick }: OpenPassButtonProps) => (
     height={"60px"}
     style={{ borderRadius: "20px", padding: "15px 15px", fontSize: "20px" }}
     onClick={onClick}
-    _hover={{ border: "3px solid #4ef946" }}
+    _hover={{ border: "3px solid #79c2da" }}
     _active={{
       bg: "#dddfe2",
       transform: "scale(0.98)",
-      border: "3px solid #4ef946",
+      border: "3px solid #79c2da",
     }}
   >
     Sign in with OpenPass
