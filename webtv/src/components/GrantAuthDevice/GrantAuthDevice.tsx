@@ -26,7 +26,11 @@ const SignIn = ({
   errorState = false,
 }: {
   errorState: boolean;
-  deviceAuth: { userCode?: string; verificationUriComplete?: string };
+  deviceAuth: {
+    userCode?: string;
+    verificationUriComplete?: string;
+    verificationUri?: string;
+  };
 }) => {
   const getQRCodeURl = useMemo(() => {
     const qrQuery = `https://quickchart.io/qr?margin=1&text=${deviceAuth?.verificationUriComplete}`;
@@ -44,8 +48,8 @@ const SignIn = ({
                 Scan this image using the camera on your phone to get a link
               </Text>
               <Text fontSize="xl" fontWeight={"bold"}>
-                Or visit {deviceAuth?.verificationUriComplete} on a computer or
-                mobile device.
+                Or visit {deviceAuth?.verificationUri} and enter XXXXXXX on a
+                computer or mobile device
               </Text>
             </>
           )}
@@ -145,7 +149,7 @@ const GrantAuthDevice = ({ shouldOpen, onClosed }: GrantAuthDeviceProps) => {
 
   const { deviceAuth } = UseOpenPassDeviceAuth({
     onError: (error) => {
-      console.log(error)
+      console.log(error);
       setErrorState(true);
       setCurrentUser(null);
     },
