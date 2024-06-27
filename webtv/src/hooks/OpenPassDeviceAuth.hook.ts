@@ -31,7 +31,7 @@ export const UseOpenPassDeviceAuth = ({
 
   const openPassClient = useMemo(() => {
     return new OpenPassClient({
-      clientId: process.env.REACT_APP_OPEN_PASS_CLIENT_ID || "",
+      clientId: "0ccab9d4625941a3836d945c7c61ecbc",
       baseUrl: "https://auth.myopenpass.com/",
     });
   }, []);
@@ -75,6 +75,7 @@ export const UseOpenPassDeviceAuth = ({
 
       if (tokenResponse?.status === STATUSES.OK) {
         const data = tokenResponse?.tokens || {};
+        setPollingEnabled(false);
         setDeviceAuthenticated(true);
         onAuth(data);
       }
@@ -96,25 +97,26 @@ export const UseOpenPassDeviceAuth = ({
   }, [deviceAuth, fetchDeviceToken]);
 
   useEffect(() => {
-    const pollingCallback = () => {
-      fetchIsAuthenticated();
+    const pollingCallback = async () => {
+      await fetchIsAuthenticated();
     };
 
     const startPolling = () => {
       // Polling every X seconds the System tell us
       const timeInMs = deviceAuth?.interval * 1000;
-      timerIdRef.current = setInterval(pollingCallback, timeInMs);
+
+      if (pollingEnabled) {
+        timerIdRef.current = setInterval(pollingCallback, timeInMs);
+      } else {
+        stopPolling();
+      }
     };
+
     const stopPolling = () => {
       clearInterval(timerIdRef.current);
     };
 
-    if (deviceAuth?.interval && pollingEnabled) {
-      startPolling();
-    } else {
-      stopPolling();
-    }
-
+    startPolling();
     return () => {
       stopPolling();
     };
