@@ -1,0 +1,49 @@
+{
+  "name": "openpass-webtv-sample",
+  "version": "1.0.0",
+  "private": false,
+  "scripts": {
+    "dev": "react-scripts start",
+    "build": "react-app-rewired build",
+    "manual-build": "node ./pipelines/build.js"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@openpass/openpass-js-sdk": "^4.1.0",
+    "framer-motion": "^11.0.25",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-scripts": "5.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.6",
+    "@babel/plugin-transform-object-rest-spread": "^7.24.7",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.24.6",
+    "@babel/preset-react": "^7.24.6",
+    "@babel/preset-typescript": "^7.24.6",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "babel-loader": "8.1.0",
+    "core-js": "^3.37.1",
+    "customize-cra": "^1.0.0",
+    "eslint": "^6.6.0",
+    "postcss": "^8",
+    "react-app-rewired": "^2.2.1",
+    "typescript": "4.9.5"
+  },
+  "browserslist": {
+    "production": [
+      "chrome 50"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

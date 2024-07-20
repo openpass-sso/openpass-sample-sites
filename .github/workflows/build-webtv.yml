@@ -1,0 +1,39 @@
+name: Test WebTV Pull Requests
+
+on:
+  pull_request:
+    paths:
+      - "webtv/*"
+
+  push:
+    branches: [main]
+    paths:
+      - "webtv/*"
+
+  # This allows us to manually run this job
+  workflow_dispatch:
+
+jobs:
+  brightscript-code-checks:
+    name: Code Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          working-directory: webtv
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
+          scope: "@openpass"
+
+      - name: Install Dependencies
+        run: npm i --force
+        working-directory: webtv
+
+      - name: Run Build
+        run: npm run build
+        working-directory: webtv
