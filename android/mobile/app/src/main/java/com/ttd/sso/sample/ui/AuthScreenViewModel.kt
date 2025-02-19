@@ -61,6 +61,7 @@ class AuthScreenViewModel(
                 // Observe the results of the flow, handling them accordingly.
                 newClient.state.collect { state ->
                     when (state) {
+                        is WebSignInFlowState.Initialized -> Unit
                         is WebSignInFlowState.Error -> _viewState.emit(ErrorState(state.error))
                         is WebSignInFlowState.Complete -> {
                             val tokens = manager.currentTokens
