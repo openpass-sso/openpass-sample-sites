@@ -13,6 +13,9 @@ on:
   # This allows us to manually run this job
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
 
   swift-code-checks:
@@ -21,6 +24,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Select Xcode 15.3
         run: sudo xcode-select -s /Applications/Xcode_15.3.app

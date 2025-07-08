@@ -7,12 +7,16 @@ on:
 env:
   PIANO_ECR_REPOSITORY: openpass-sample-site-piano
 
+permissions:
+  contents: read
+
 jobs:
 
   generate-tag-name:
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.tag_container.outputs.tag }}
+
     steps:
       - name: Generate container tag
         id: tag_container
@@ -20,10 +24,17 @@ jobs:
         run: |
           # https://stackoverflow.com/a/58035262/19888675
           # $GITHUB_HEAD_REF on PR, and $GITHUB_REF on main push
-          branch_name=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
-          tag="${branch_name:0:30}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}"
+          branch_name=${GH_HEAD_REF:-${GH_REF#refs/heads/}}
+          tag="${branch_name:0:30}-${GH_SHA}-${GH_RUN_ID}-${GH_RUN_NUMBER}-${GH_RUN_ATTEMPT}"
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
-          echo “Tag: $tag”
+          echo "Tag: $tag"
+        env:
+          GH_HEAD_REF: ${{ github.head_ref }}
+          GH_REF: ${{ github.ref }}
+          GH_SHA: ${{ github.sha }}
+          GH_RUN_ID: ${{ github.run_id }}
+          GH_RUN_NUMBER: ${{ github.run_number }}
+          GH_RUN_ATTEMPT: ${{ github.run_attempt }}
 
   build-piano:
     needs: generate-tag-name
@@ -34,26 +45,29 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
    
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
+      uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
       with:
         role-to-assume: ${{ secrets.ECR_PUSH_ROLE_ARN_DEV }}
         aws-region: us-east-1
 
     - name: Login to Amazon ECR
       id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v2
+      uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076 # v2.0.1
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       working-directory: ./piano-io
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        TAG_NAME: ${{needs.generate-tag-name.outputs.tag}}
       run: |
-        docker build -t $ECR_REGISTRY/$PIANO_ECR_REPOSITORY:${{needs.generate-tag-name.outputs.tag}} .
-        docker push $ECR_REGISTRY/$PIANO_ECR_REPOSITORY:${{needs.generate-tag-name.outputs.tag}}
-        echo "Pushed image to $ECR_REGISTRY/$PIANO_ECR_REPOSITORY:${{needs.generate-tag-name.outputs.tag}}"
+        docker build -t "${ECR_REGISTRY}/${PIANO_ECR_REPOSITORY}:${TAG_NAME}" .
+        docker push "${ECR_REGISTRY}/${PIANO_ECR_REPOSITORY}:${TAG_NAME}"
+        echo "Pushed image to ${ECR_REGISTRY}/${PIANO_ECR_REPOSITORY}:${TAG_NAME}"
 
   deploy-piano-dev:
     needs: [generate-tag-name, build-piano]
@@ -64,6 +78,7 @@ jobs:
       contents: read
     concurrency:
       group: "deploy-dev-group"
+
     steps:
     - uses: actions/checkout@v4
     
@@ -80,15 +95,14 @@ jobs:
 
         git config user.name github_build_script
         git config user.email github_build_script@thetradedesk.com
-   
-        # download yq
-        wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY} -O /usr/bin/yq && chmod +x /usr/bin/yq
     
         # Updating production image tag
-        yq -i ".ttd-generic-deployment.image.tag = \"${{needs.generate-tag-name.outputs.tag}}\"" environments/dev/sample-site-piano/values.yaml
+        yq -i ".ttd-generic-deployment.image.tag = \"${TAG_NAME}\"" environments/dev/sample-site-piano/values.yaml
     
         # Commit changes
         git add environments/dev/sample-site-piano/values.yaml
-        git commit -m "Updating dev sample-site-piano image tag to ${{needs.generate-tag-name.outputs.tag}}"
+        git commit -m "Updating dev sample-site-piano image tag to ${TAG_NAME}"
     
         git push
+      env:
+        TAG_NAME: ${{needs.generate-tag-name.outputs.tag}}

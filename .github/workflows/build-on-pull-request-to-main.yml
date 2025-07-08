@@ -1,8 +1,11 @@
-name: Build + release PR branch to dev
+name: Build PR branch
 
 on:
   pull_request:
     branches: [ main ]
+
+permissions:
+  contents: read
 
 jobs:
 
@@ -11,6 +14,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
    
     - name: Test Docker build
       id: build-image
