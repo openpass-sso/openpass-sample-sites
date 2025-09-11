@@ -49,7 +49,7 @@ jobs:
       contents: read
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         persist-credentials: false
     
@@ -85,10 +85,10 @@ jobs:
       group: "deploy-dev-group"
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     
     - name: Checkout kube-system-resources
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: openpass-sso/kube-system-resources
         token: ${{ secrets.GH_ORG_KUBE_SYSTEM_RESOURCES_PAT }}
@@ -124,10 +124,10 @@ jobs:
       group: "deploy-stg-group"
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Checkout kube-system-resources
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: openpass-sso/kube-system-resources
         token: ${{ secrets.GH_ORG_KUBE_SYSTEM_RESOURCES_PAT }}
@@ -162,10 +162,10 @@ jobs:
       group: "deploy-prd-group"
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Checkout kube-system-resources
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: openpass-sso/kube-system-resources
         token: ${{ secrets.GH_ORG_KUBE_SYSTEM_RESOURCES_PAT }}
