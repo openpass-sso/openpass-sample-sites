@@ -13,15 +13,18 @@ on:
   # This allows us to manually run this job
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   brightscript-code-checks:
     name: Code Tests
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
-          working-directory: roku
+          persist-credentials: false
 
       - name: Install Node.js
         uses: actions/setup-node@v4
