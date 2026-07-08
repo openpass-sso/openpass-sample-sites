@@ -88,12 +88,11 @@ jobs:
     - uses: actions/checkout@v5
     
     - name: Checkout kube-system-resources
-      uses: actions/checkout@v5
+      uses: ./.github/actions/checkout-kube-system-resources
       with:
-        repository: openpass-sso/kube-system-resources
-        token: ${{ secrets.GH_ORG_KUBE_SYSTEM_RESOURCES_PAT }}
-        path: kube-system-resources
-    
+        client-id: ${{ vars.RELEASE_BOT_CLIENT_ID }}
+        private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+
     - name: Set dev Docker image tag
       run: |
         cd kube-system-resources
@@ -127,11 +126,10 @@ jobs:
     - uses: actions/checkout@v5
 
     - name: Checkout kube-system-resources
-      uses: actions/checkout@v5
+      uses: ./.github/actions/checkout-kube-system-resources
       with:
-        repository: openpass-sso/kube-system-resources
-        token: ${{ secrets.GH_ORG_KUBE_SYSTEM_RESOURCES_PAT }}
-        path: kube-system-resources
+        client-id: ${{ vars.RELEASE_BOT_CLIENT_ID }}
+        private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
 
     - name: Set stg Docker image tag
       run: |
@@ -165,11 +163,10 @@ jobs:
     - uses: actions/checkout@v5
 
     - name: Checkout kube-system-resources
-      uses: actions/checkout@v5
+      uses: ./.github/actions/checkout-kube-system-resources
       with:
-        repository: openpass-sso/kube-system-resources
-        token: ${{ secrets.GH_ORG_KUBE_SYSTEM_RESOURCES_PAT }}
-        path: kube-system-resources
+        client-id: ${{ vars.RELEASE_BOT_CLIENT_ID }}
+        private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
 
     - name: Set prd Docker image tag
       run: |
