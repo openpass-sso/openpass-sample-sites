@@ -1,0 +1,15 @@
+{
+  "id": "com.webapp-sample.app",
+  "version": "1.0.0",
+  "vendor": "The TradeDesk",
+  "type": "web",
+  "main": "index.html",
+  "title": "Open Pass WebTv",
+  "icon": "./images/starfin.png",
+  "largeIcon": "./images/starfin.png",
+  "splashColor": "#FFFFFF",
+  "splashFitModeOnPortrait": "width",
+  "bgColor": "#FFFFFF",
+  "iconColor": "#FFFFFF",
+  "useUnlimitedMediaPolicy": true
+}

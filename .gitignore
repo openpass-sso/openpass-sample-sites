@@ -60,3 +60,10 @@ build/
 # Local configuration file (sdk path, etc)
 local.properties
 
+*.env
+
+webtv/out
+webtv/build
+webtv/applications/WebOs
+webtv/applications/WebOS
+webtv/applications/Tizen

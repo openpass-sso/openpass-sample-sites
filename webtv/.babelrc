@@ -1,0 +1,22 @@
+{
+  "presets": [
+    "@babel/preset-react",
+    "@babel/preset-typescript",
+    ["@babel/preset-env", {
+      "targets": {
+        "edge": "17",
+        "firefox": "60",
+        "chrome": "50",
+        "safari": "11.1",
+        "ie": "11"
+      },
+      "corejs": { "version": 3 },
+      "useBuiltIns": "usage",
+      "forceAllTransforms":  true,
+      "modules": false  // Discourage use of CommonJS for better ES5 compatibility
+    }]
+  ],
+  "plugins": [
+    "@babel/plugin-transform-object-rest-spread"
+  ]  // You might need additional plugins depending on your code's complexity
+}
