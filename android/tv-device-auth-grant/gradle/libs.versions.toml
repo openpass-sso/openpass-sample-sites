@@ -17,7 +17,7 @@ androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-tv-foundation = { group = "androidx.tv", name = "tv-foundation", version = "1.0.0-alpha12" }
+androidx-tv-foundation = { group = "androidx.tv", name = "tv-foundation", version = "1.0.0" }
 androidx-tv-material = { group = "androidx.tv", name = "tv-material", version = "1.0.0" }
 
 zxing-core = { group = "com.google.zxing", name = "core", version = "3.5.3" }
