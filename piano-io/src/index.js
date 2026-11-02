@@ -1,7 +1,7 @@
 import express from 'express';
 import { fileURLToPath } from 'url';
 import { join, dirname } from 'path';
-import { renderFile } from 'ejs';
+import ejs from 'ejs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -12,7 +12,7 @@ async function startServer() {
     app.disable('x-powered-by');
 
     app.set('views', __dirname + '/views');
-    app.engine('html', renderFile);
+    app.engine('html', ejs.renderFile);
     app.set('view engine', 'ejs');
 
     app.use('/static', express.static(join(__dirname, 'public')))
