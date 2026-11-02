@@ -44,7 +44,7 @@ jobs:
       contents: read
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v7
       with:
         persist-credentials: false
    
@@ -60,14 +60,21 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
-      working-directory: ./piano-io
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        TAG_NAME: ${{needs.generate-tag-name.outputs.tag}}
-      run: |
-        docker build -t "${ECR_REGISTRY}/${PIANO_ECR_REPOSITORY}:${TAG_NAME}" .
-        docker push "${ECR_REGISTRY}/${PIANO_ECR_REPOSITORY}:${TAG_NAME}"
-        echo "Pushed image to ${ECR_REGISTRY}/${PIANO_ECR_REPOSITORY}:${TAG_NAME}"
+      uses: $/.github/actions/build-and-push-image
+      with:
+        ecr-registry: ${{ steps.login-ecr.outputs.registry }}
+        ecr-repository: ${{ env.PIANO_ECR_REPOSITORY }}
+        image-tag: ${{ needs.generate-tag-name.outputs.tag }}
+
+  scan-piano:
+    name: Dependency Scan
+    needs: [generate-tag-name, build-piano]
+    # Grype is untrusted: no permissions at all, and it only sees the SBOM artifact
+    permissions: {}
+    uses: openpass-sso/shared-public-actions/.github/workflows/grype-scan.yml@main
+    with:
+      sbom-artifact: sbom-${{ needs.generate-tag-name.outputs.tag }}
+      fail-on: "critical"
 
   deploy-piano-dev:
     needs: [generate-tag-name, build-piano]
@@ -80,10 +87,10 @@ jobs:
       group: "deploy-dev-group"
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v7
     
     - name: Checkout kube-system-resources
-      uses: ./.github/actions/checkout-kube-system-resources
+      uses: $/.github/actions/checkout-kube-system-resources
       with:
         client-id: ${{ vars.RELEASE_BOT_CLIENT_ID }}
         private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}

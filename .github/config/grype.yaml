@@ -1,0 +1,18 @@
+# Grype configuration, used by .github/workflows/grype-scan.yml
+# Reference: https://github.com/anchore/grype#configuration
+#
+# This file is copied into the SBOM artifact of every build, so each artifact records which rules were applied.
+# Changes here can hide findings, so review them like code.
+
+# Report CVE ids instead of GitHub advisory (GHSA) ids
+by-cve: true
+
+# Only report vulnerabilities that have a fix available. Left off so unfixable findings stay visible.
+# only-fixed: true
+
+# Suppress a finding by id. Use only for false matches, and say why in a comment next to the rule.
+ignore: []
+#  - vulnerability: CVE-2000-0000
+#    package:
+#      name: example
+#      version: 1.0.0

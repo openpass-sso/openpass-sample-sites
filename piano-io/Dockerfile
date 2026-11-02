@@ -1,7 +1,8 @@
-FROM node:20.19.5@sha256:abcf9c98af22ea2c5d33435143d9d8a5f6f191e1e1938a7650fc8b78c382b5a9
+FROM node:24.22.2-alpine@sha256:8a32c8cf649a49915a66e81e7a609223c708d0adabf288ee3f4077d765542f85
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 COPY . .
 EXPOSE 3002
-CMD ["npm","run","server"]
+USER node
+CMD ["node","src/index.js"]

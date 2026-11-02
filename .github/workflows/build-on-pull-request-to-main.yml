@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v7
       with:
         persist-credentials: false
    
@@ -22,3 +22,34 @@ jobs:
       working-directory: ./piano-io
       run: |
         docker build .
+
+  sbom:
+    name: Generate SBOM
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: false
+
+    - name: Prepare Dependency Scan inputs
+      id: scan-inputs
+      uses: $/.github/actions/prepare-scan-inputs
+
+    - name: Upload SBOM and scan config
+      uses: actions/upload-artifact@v7
+      with:
+        name: sbom-pr-${{ github.event.pull_request.number }}
+        path: ${{ steps.scan-inputs.outputs.dir }}/
+        retention-days: 30
+
+  scan:
+    name: Dependency Scan
+    needs: sbom
+    # Grype is untrusted: no permissions at all, and it only sees the SBOM artifact
+    permissions: {}
+    uses: openpass-sso/shared-public-actions/.github/workflows/grype-scan.yml@main
+    with:
+      sbom-artifact: sbom-pr-${{ github.event.pull_request.number }}
+      fail-on: "high"
+      retention-days: 15

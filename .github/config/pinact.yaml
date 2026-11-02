@@ -1,0 +1,17 @@
+version: 3
+
+ignore_actions:
+  - name: actions/.*
+    ref: "v\\d+"
+  - name: openpass-sso/openpass-android-sdk/.github/workflows/device-tests.yml
+    ref: main
+  - name: openpass-sso/openpass-ios-sdk/.github/workflows/device-tests.yml
+    ref: main
+  - name: openpass-sso/openpass-js-sdk/.github/workflows/build-and-test.yml
+    ref: master
+  - name: openpass-sso/shared-public-actions/.github/workflows/pinact-scan.yml
+    ref: main
+  - name: openpass-sso/shared-public-actions/.github/workflows/zizmor-scan.yml
+    ref: main
+  - name: openpass-sso/shared-public-actions/.github/workflows/grype-scan.yml
+    ref: main
