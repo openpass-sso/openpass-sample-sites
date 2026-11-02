@@ -1,0 +1,42 @@
+name: Prepare Dependency Scan Inputs
+description: Creates the scan inputs directory with the npm SBOM plus the Grype config from .github/config
+
+inputs:
+  working-directory:
+    description: Folder with the package-lock.json to build the npm SBOM from
+    required: false
+    default: piano-io
+  npm-sbom-folder:
+    description: >-
+      Folder inside the scan inputs directory for the npm SBOM. Use sbom to have it scanned, or any other
+      name (for example archive) to keep it in the artifact without scanning it.
+    required: false
+    default: sbom
+
+outputs:
+  dir:
+    description: Directory with the sbom/, config/ and optional npm SBOM folders, ready to upload as the scan inputs artifact
+    value: ${{ steps.prepare.outputs.dir }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Prepare scan inputs
+      id: prepare
+      shell: bash
+      env:
+        NPM_SBOM_FOLDER: ${{ inputs.npm-sbom-folder }}
+        WORKING_DIRECTORY: ${{ inputs.working-directory }}
+      run: |
+        dir="$RUNNER_TEMP/scan-inputs"
+        mkdir -p "$dir/sbom" "$dir/$NPM_SBOM_FOLDER" "$dir/config"
+
+        # SBOM of the exact library versions in the lockfile
+        (cd "$WORKING_DIRECTORY" && npm sbom --package-lock-only --sbom-format cyclonedx) > "$dir/$NPM_SBOM_FOLDER/sbom-npm.cdx.json"
+
+        # Config travels with the SBOMs, because the scan job does not check out the repository
+        if [ -f .github/config/grype.yaml ]; then
+          cp .github/config/grype.yaml "$dir/config/grype.yaml"
+        fi
+
+        echo "dir=$dir" >> "$GITHUB_OUTPUT"
