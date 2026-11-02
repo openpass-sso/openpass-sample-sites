@@ -80,10 +80,10 @@ jobs:
       group: "deploy-dev-group"
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v7
     
     - name: Checkout kube-system-resources
-      uses: ./.github/actions/checkout-kube-system-resources
+      uses: $/.github/actions/checkout-kube-system-resources
       with:
         client-id: ${{ vars.RELEASE_BOT_CLIENT_ID }}
         private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}

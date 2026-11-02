@@ -1,0 +1,15 @@
+rules:
+  artipacked:
+    # because we use the newer checkout@v6, see https://docs.zizmor.sh/audits/#artipacked
+    disable: true
+  ref-confusion:
+    # because pinact will require SHA and verify symbolic refs
+    disable: true
+  unpinned-uses:
+    config:
+      policies:
+        actions/*: ref-pin
+        openpass-sso/openpass-js-sdk/*: ref-pin
+        openpass-sso/openpass-android-sdk/*: ref-pin
+        openpass-sso/openpass-ios-sdk/*: ref-pin
+        openpass-sso/shared-public-actions/*: ref-pin
