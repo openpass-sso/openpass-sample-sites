@@ -9,6 +9,8 @@ async function startServer() {
 
     const app = express();
 
+    app.disable('x-powered-by');
+
     app.set('views', __dirname + '/views');
     app.engine('html', renderFile);
     app.set('view engine', 'ejs');
