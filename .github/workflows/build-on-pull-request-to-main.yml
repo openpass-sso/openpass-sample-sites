@@ -34,7 +34,7 @@ jobs:
 
     - name: Prepare Dependency Scan inputs
       id: scan-inputs
-      uses: ./.github/actions/prepare-scan-inputs
+      uses: $/.github/actions/prepare-scan-inputs
 
     - name: Upload SBOM and scan config
       uses: actions/upload-artifact@v7
