@@ -37,7 +37,7 @@ runs:
 
     - name: Prepare scan inputs
       id: scan-inputs
-      uses: $/.github/actions/prepare-scan-inputs
+      uses: ./.github/actions/prepare-scan-inputs
       with:
         working-directory: ${{ inputs.working-directory }}
         # The image SBOM is scanned. The npm SBOM is kept in the artifact but not scanned, because the image
