@@ -15,3 +15,5 @@ ignore_actions:
     ref: main
   - name: openpass-sso/shared-public-actions/.github/workflows/grype-scan.yml
     ref: main
+  - name: openpass-sso/shared-public-actions/.github/workflows/secret-scan.yml
+    ref: main
